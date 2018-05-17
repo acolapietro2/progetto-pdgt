@@ -23,28 +23,29 @@ app.get('/', function (req, res) {
 
 // Richiesta base
 app.get('/hotspots', function (req, res) {
+  
+  // Carico i dati esterni
+  request(link_dati, function (error, response, body) {
+    data_store = JSON.parse(body);
+  });
   res.send(data_store);
   res.status(200);
 });
 
 // Richiesta con filtro
 app.get('/hotspots/:city', function (req, res) {
-  var filtered = data_store;
-  // Filtro i dati
-  filtered['features'] = where(data_store['features'], {
-    "properties": {
-      "city": req.params.city.replace(':city=', '')
-    }
-  });
-
-  res.send(filtered);
-  res.status(200);
-});
-
-const server = app.listen(process.env.PORT || 8000, function () {
-
   // Carico i dati esterni
   request(link_dati, function (error, response, body) {
     data_store = JSON.parse(body);
   });
+  var filtered = data_store;
+  // Filtro i dati
+  filtered['features'] = where(data_store['features'], {"properties": {"city": req.params.city.replace(':city=','')}});
+
+  res.send(filtered);  
+  res.status(200);
+});
+
+const server = app.listen(process.env.PORT || 8000, function () {
+  
 });
