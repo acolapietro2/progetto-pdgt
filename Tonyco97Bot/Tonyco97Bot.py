@@ -41,7 +41,7 @@ def on_chat_message(msg):
         if content_type == 'text':
             try:
                 r = requests.get(
-                    url='https://flint-marble.glitch.me/hotspots/:city=' + str(msg['text']))
+                    url='https://hotspotsusa-api.herokuapp.com/hotspots/:city=' + str(msg['text']))
                 json_data = r.json()
 
                 for i in range(2, 7):
@@ -76,7 +76,7 @@ def on_chat_message(msg):
 
                 try:
                     r = requests.get(
-                        url='https://flint-marble.glitch.me/hotspots/:city=' + str(a))
+                        url='https://hotspotsusa-api.herokuapp.com//hotspots/:city=' + str(a))
                     json_data = r.json()
 
                     for i in range(2, 7):
