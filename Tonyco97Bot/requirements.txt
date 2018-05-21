@@ -1,3 +1,5 @@
-telepot
+future
 requests
+reverse_geocode
 simplejson
+telepot

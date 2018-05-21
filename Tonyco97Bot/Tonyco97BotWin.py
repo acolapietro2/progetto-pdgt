@@ -1,11 +1,12 @@
-import os
-import sys
-import telepot
 from settings import token, start_msg
 from telepot.namedtuple import ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 from time import sleep
-import requests
 import json
+import os
+import requests
+import reverse_geocode
+import sys
+import telepot
 
 # State for user
 user_state = {}
@@ -64,19 +65,13 @@ def on_chat_message(msg):
         elif content_type == 'location':
 
             try:
-                # send location
-                response = requests.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + str(
-                    msg['location']['latitude']) + ',' + str(msg['location']['longitude']))
-                resp_json_payload = response.json()
-                a = str(resp_json_payload['results'][0]
-                        ['address_components'][2]['long_name'])
-
-                if a == 'West Bronx':
-                    a = 'Bronx'
+                coordinates = (str(msg['location']['latitude']),
+                               str(msg['location']['longitude'])),
+                a = reverse_geocode.search(coordinates)[0]['city']
 
                 try:
                     r = requests.get(
-                        url='https://hotspotsusa-api.herokuapp.com//hotspots/:city=' + str(a))
+                        url='https://hotspotsusa-api.herokuapp.com/hotspots/:city=' + str(a))
                     json_data = r.json()
 
                     for i in range(2, 7):
@@ -94,15 +89,14 @@ def on_chat_message(msg):
                         bot.sendLocation(chat_id, lat, lon)
 
                 except:
-                    bot.sendMessage(chat_id, "Errore API", reply_markup=ReplyKeyboardRemove(
+                    bot.sendMessage(chat_id, "'" + str(a) + "' non in lista", reply_markup=ReplyKeyboardRemove(
                         remove_keyboard=True))
             except:
-                 bot.sendMessage(chat_id, "Errore API Google, riprova...")
+                bot.sendMessage(chat_id, "Errore API Google, riprova...")
 
 
 # Main
 print("Avvio Tonyco97Bot")
-
 
 # Start working
 try:
@@ -111,4 +105,4 @@ try:
     while(1):
         sleep(10)
 finally:
-    print("esci")
+    print("Esci")
