@@ -26,3 +26,4 @@ Il progetto svolge due funzioni principali:
 
 <h2>Bot di telegram </h2>
 Per avviare il bot, occorre scaricare l'applicazione di messaggistica chiamata "telegram". Successivamente e' necessario effettuare la ricerca del bot che e' denominato "HotspotUsa";
+![inizializzazioneBot](immagini/inizializzazioneBot.png)
