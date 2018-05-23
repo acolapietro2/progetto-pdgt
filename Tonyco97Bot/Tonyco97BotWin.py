@@ -57,7 +57,6 @@ def on_chat_message(msg):
                     bot.sendMessage(chat_id, nome, reply_markup=ReplyKeyboardRemove(
                         remove_keyboard=True))
                     bot.sendLocation(chat_id, lat, lon)
-					user_state[chat_id] = 0
 
             except:
                 bot.sendMessage(chat_id, "Errore API", reply_markup=ReplyKeyboardRemove(
@@ -88,7 +87,6 @@ def on_chat_message(msg):
                         bot.sendMessage(chat_id, nome, reply_markup=ReplyKeyboardRemove(
                             remove_keyboard=True))
                         bot.sendLocation(chat_id, lat, lon)
-						user_state[chat_id] = 0
 
                 except:
                     bot.sendMessage(chat_id, "'" + str(a) + "' non in lista", reply_markup=ReplyKeyboardRemove(

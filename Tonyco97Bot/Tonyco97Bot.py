@@ -1,4 +1,4 @@
-from settings import token, start_msg
+from settings import token, start_msg, client_file
 from telepot.namedtuple import ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardMarkup, InlineKeyboardButton
 from time import sleep
 import json
@@ -22,7 +22,8 @@ def on_chat_message(msg):
 
     # start command
     if 'text' in msg and msg['text'] == '/start':
-        bot.sendMessage(chat_id, start_msg, parse_mode='Markdown')
+        if register_user(chat_id):
+            bot.sendMessage(chat_id, start_msg, parse_mode='Markdown')
 
     if 'text' in msg and msg['text'] == '/cerca':
         msg = "Scrivi la località (solo USA)"
@@ -56,44 +57,63 @@ def on_chat_message(msg):
                     bot.sendMessage(chat_id, nome, reply_markup=ReplyKeyboardRemove(
                         remove_keyboard=True))
                     bot.sendLocation(chat_id, lat, lon)
-					user_state[chat_id] = 0
-
+                    user_state[chat_id] = 0
             except:
                 bot.sendMessage(chat_id, "Errore API", reply_markup=ReplyKeyboardRemove(
                     remove_keyboard=True))
 
         elif content_type == 'location':
 
+            coordinates = (str(msg['location']['latitude']),
+                           str(msg['location']['longitude'])),
+            a = reverse_geocode.search(coordinates)[0]['city']
+
             try:
-                coordinates = (str(msg['location']['latitude']),
-                               str(msg['location']['longitude'])),
-                a = reverse_geocode.search(coordinates)[0]['city']
+                r = requests.get(
+                    url='https://hotspotsusa-api.herokuapp.com/hotspots/:city=' + str(a))
+                json_data = r.json()
 
-                try:
-                    r = requests.get(
-                        url='https://hotspotsusa-api.herokuapp.com/hotspots/:city=' + str(a))
-                    json_data = r.json()
+                for i in range(2, 7):
+                    # takes links from the JSON
+                    nome = json_data['features'][i * 3]['properties']['city'] + '\n' +\
+                        json_data['features'][i * 3]['properties']['ssid'] + '\n' +\
+                        json_data['features'][i * 3]['properties']['type'] + '\n' +\
+                        json_data['features'][i * 3]['properties']['name']
 
-                    for i in range(2, 7):
-                        # takes links from the JSON
-                        nome = json_data['features'][i * 3]['properties']['city'] + '\n' +\
-                            json_data['features'][i * 3]['properties']['ssid'] + '\n' +\
-                            json_data['features'][i * 3]['properties']['type'] + '\n' +\
-                            json_data['features'][i * 3]['properties']['name']
+                    lat = json_data['features'][i * 3]['properties']['lat']
+                    lon = json_data['features'][i * 3]['properties']['lon']
 
-                        lat = json_data['features'][i * 3]['properties']['lat']
-                        lon = json_data['features'][i * 3]['properties']['lon']
-
-                        bot.sendMessage(chat_id, nome, reply_markup=ReplyKeyboardRemove(
-                            remove_keyboard=True))
-                        bot.sendLocation(chat_id, lat, lon)
-						user_state[chat_id] = 0
-
-                except:
-                    bot.sendMessage(chat_id, "'" + str(a) + "' non in lista", reply_markup=ReplyKeyboardRemove(
+                    bot.sendMessage(chat_id, nome, reply_markup=ReplyKeyboardRemove(
                         remove_keyboard=True))
+                    bot.sendLocation(chat_id, lat, lon)
+                    user_state[chat_id] = 0
             except:
-                bot.sendMessage(chat_id, "Errore API Google, riprova...")
+                bot.sendMessage(chat_id, "'" + str(a) + "' non in lista", reply_markup=ReplyKeyboardRemove(
+                    remove_keyboard=True))
+
+
+def register_user(chat_id):
+    """
+    Register user
+    """
+    insert = 1
+
+    try:
+        f = open(client_file, "r+")
+
+        for user in f.readlines():
+            if user.replace('\n', '') == str(chat_id):
+                insert = 0
+
+    except IOError:
+        f = open(client_file, "w")
+
+    if insert:
+        f.write(str(chat_id) + '\n')
+
+    f.close()
+
+    return insert
 
 
 # Main
