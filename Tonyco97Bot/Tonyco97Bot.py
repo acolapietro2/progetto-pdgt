@@ -63,32 +63,42 @@ def on_chat_message(msg):
                     remove_keyboard=True))
 
         elif content_type == 'location':
+            google_api = True
 
-            coordinates = (str(msg['location']['latitude']),
-                           str(msg['location']['longitude'])),
-            a = reverse_geocode.search(coordinates)[0]['city']
+            while (google_api == True):
+                try:
+                    # send location
+                    response = requests.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + str(
+                        msg['location']['latitude']) + ',' + str(msg['location']['longitude']))
+                    resp_json_payload = response.json()
+                    a = str(resp_json_payload['results'][0]
+                            ['address_components'][2]['long_name'])
+                    if a == 'West Bronx' or a == 'East Bronx':
+                        a = 'Bronx'
+                    google_api = False
 
+                except:
+                    pass
+
+            bot.sendMessage(chat_id, "Cerco Hotspot a "+ a, reply_markup=ReplyKeyboardRemove(
+                    remove_keyboard=True))
             try:
                 r = requests.get(
                     url='https://hotspotsusa-api.herokuapp.com/hotspots/:city=' + str(a))
                 json_data = r.json()
-
                 for i in range(2, 7):
                     # takes links from the JSON
                     nome = json_data['features'][i * 3]['properties']['city'] + '\n' +\
                         json_data['features'][i * 3]['properties']['ssid'] + '\n' +\
                         json_data['features'][i * 3]['properties']['type'] + '\n' +\
                         json_data['features'][i * 3]['properties']['name']
-
                     lat = json_data['features'][i * 3]['properties']['lat']
                     lon = json_data['features'][i * 3]['properties']['lon']
-
                     bot.sendMessage(chat_id, nome, reply_markup=ReplyKeyboardRemove(
                         remove_keyboard=True))
                     bot.sendLocation(chat_id, lat, lon)
-                    user_state[chat_id] = 0
             except:
-                bot.sendMessage(chat_id, "'" + str(a) + "' non in lista", reply_markup=ReplyKeyboardRemove(
+                bot.sendMessage(chat_id, "'" + a + "' non in lista", reply_markup=ReplyKeyboardRemove(
                     remove_keyboard=True))
 
 

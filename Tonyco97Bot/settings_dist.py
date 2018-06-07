@@ -5,3 +5,6 @@ token = 'TOKEN'
 start_msg = "Benvenuto su @Tonyco97Bot\n"\
             "l'unico bot che ti indica i wifi liberi presenti nelle aree americane\n"\
 			"Buona permanenza da noi :) "
+
+# File with 'started' clients
+client_file = "clients_id.txt"
