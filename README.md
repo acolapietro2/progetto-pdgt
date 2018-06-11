@@ -42,8 +42,10 @@ Per avviare il bot, occorre scaricare l'applicazione di messaggistica chiamata "
 Successivamente apparira' un messaggio di benvenuto  e un pulsante dove poter cliccare avvia
 <a><img src='Immagini/benvenuto su tonyco97bot.PNG' height='250' alt='ScreenShot'/></a>
 Appariranno due opzioni, la prima quella di poter effettuare la ricerca e la seconda quella di poter avviare la ricerca con gps
-<a><img src='Immagini/IMG quandoclicchisucerca.PNG' height='250' alt='ScreenShot'/></a>
 <a><img src='Immagini/IMG quandoclicchisucercaquellogiusto.PNG' height='250' alt='ScreenShot'/></a>
+Quando si clicca su cerca appaiono diverse localita' su cui e' possibile effettuare la scelta
+<a><img src='Immagini/IMG quandoclicchisucerca.PNG' height='250' alt='ScreenShot'/></a>
+
 <a><img src='Immagini/IMG_quandoclicchiunalocalita.PNG' height='250' alt='ScreenShot'/></a>
 <a><img src='Immagini/IMG_quellocheescedopoavercliccatounalocalita.PNG' height='250' alt='ScreenShot'/></a>
 <a><img src='Immagini/imissione.jpg' height='250' alt='ScreenShot'/></a>
