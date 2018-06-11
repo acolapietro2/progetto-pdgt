@@ -38,14 +38,14 @@ Il Bot di telegram e' stato caricato su un server a pagamento di mia proprieta'
 
 <h2>Bot di telegram </h2>
 Per avviare il bot, occorre scaricare l'applicazione di messaggistica chiamata "telegram". Successivamente e' necessario effettuare la ricerca del bot che e' denominato "HotspotUsa";
-![ScreenShot](https://{https://imgur.com/peVsneM})
-
-
+<a><img src='Immagini/inizializzazioneBot.PNG' height='250' alt='ScreenShot'/></a>
+Successivamente apparira' un messaggio di benvenuto  e un pulsante dove poter cliccare avvia
 <a><img src='Immagini/benvenuto su tonyco97bot.PNG' height='250' alt='ScreenShot'/></a>
+Appariranno due opzioni, la prima quella di poter effettuare la ricerca e la seconda quella di poter avviare la ricerca con gps
 <a><img src='Immagini/IMG quandoclicchisucerca.PNG' height='250' alt='ScreenShot'/></a>
 <a><img src='Immagini/IMG quandoclicchisucercaquellogiusto.PNG' height='250' alt='ScreenShot'/></a>
 <a><img src='Immagini/IMG_quandoclicchiunalocalita.PNG' height='250' alt='ScreenShot'/></a>
 <a><img src='Immagini/IMG_quellocheescedopoavercliccatounalocalita.PNG' height='250' alt='ScreenShot'/></a>
 <a><img src='Immagini/imissione.jpg' height='250' alt='ScreenShot'/></a>
-<a><img src='Immagini/imSlash.PNG' height='250' alt='ScreenShot'/></a>
-<a><img src='Immagini/inizializzazioneBot.PNG' height='250' alt='ScreenShot'/></a>
+
+
