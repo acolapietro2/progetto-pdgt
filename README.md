@@ -48,6 +48,7 @@ Quando si clicca su cerca appaiono diverse localita' su cui e' possibile effettu
 <a><img src='Immagini/IMG_quandoclicchiunalocalita.PNG' height='250' alt='ScreenShot'/></a>
 Quando si clicca su una localita' appaiono 5 diverse location con indicati gli hotspot gratuiti e viene indicata anche la zona
 <a><img src='Immagini/IMG_quellocheescedopoavercliccatounalocalita.PNG' height='250' alt='ScreenShot'/></a>
+Si puo' inoltre utilizzare una funzionalita' per cercare gli hotspot in america mandando la posizione gps
 <a><img src='Immagini/imissione.jpg' height='250' alt='ScreenShot'/></a>
 
 
